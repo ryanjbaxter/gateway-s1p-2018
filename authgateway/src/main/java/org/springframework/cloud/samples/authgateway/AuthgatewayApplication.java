@@ -41,7 +41,7 @@ public class AuthgatewayApplication {
 			http.authorizeExchange().pathMatchers("/", "/color").authenticated()
 					.and().logout().logoutSuccessHandler(new RoleBasedServerLogoutSuccessHandler())
 					.and().formLogin().authenticationSuccessHandler(new RoleBasedAuthenticationSuccessHandler())
-			.and().authorizeExchange().pathMatchers("/js/**").permitAll();
+			.and().authorizeExchange().pathMatchers("/js/**", "favicon.ico", "/favicon.ico").permitAll();
 			return http.build();
 		}
 
