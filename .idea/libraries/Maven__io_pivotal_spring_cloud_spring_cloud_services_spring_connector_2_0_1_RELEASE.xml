@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: io.pivotal.spring.cloud:spring-cloud-services-spring-connector:2.0.1.RELEASE">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/io/pivotal/spring/cloud/spring-cloud-services-spring-connector/2.0.1.RELEASE/spring-cloud-services-spring-connector-2.0.1.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/io/pivotal/spring/cloud/spring-cloud-services-spring-connector/2.0.1.RELEASE/spring-cloud-services-spring-connector-2.0.1.RELEASE-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/io/pivotal/spring/cloud/spring-cloud-services-spring-connector/2.0.1.RELEASE/spring-cloud-services-spring-connector-2.0.1.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

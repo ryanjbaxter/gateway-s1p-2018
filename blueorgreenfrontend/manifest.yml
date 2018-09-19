@@ -1,0 +1,9 @@
+---
+applications:
+- name: blueorgreenfrontend
+  memory: 1024M
+  path: target/blueorgreenfrontend-0.0.1-SNAPSHOT.jar
+  timeout: 60
+  services:
+  - bluegreen-registry
+  no-route: true

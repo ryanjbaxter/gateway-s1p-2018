@@ -1,0 +1,20 @@
+---
+applications:
+- name: blueservice
+  memory: 1024M
+  path: target/blueorgreen-0.0.1-SNAPSHOT.jar
+  timeout: 60
+  services:
+  - bluegreen-registry
+  env:
+    SPRING_PROFILES_ACTIVE: blue
+  no-route: true
+- name: greenservice
+  memory: 1024M
+  path: target/blueorgreen-0.0.1-SNAPSHOT.jar
+  timeout: 60
+  services:
+  - bluegreen-registry
+  env:
+    SPRING_PROFILES_ACTIVE: green
+  no-route: true

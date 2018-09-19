@@ -1,0 +1,40 @@
+<!doctype html>
+<html ng-app="demo">
+<head>
+    <title>Blue Or Green</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-cookies.js"></script>-->
+    <script src="js/main.js"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+        body.blue {
+            background-color: lightskyblue;
+        }
+        body.green {
+            background-color: lightgreen;
+        }
+        body.yellow {
+            background-color:lightgoldenrodyellow;
+        }
+        .colorLabel {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+            text-transform: uppercase;
+            font-size: 6em;
+        }
+    </style>
+</head>
+
+<body ng-controller="Color" class="{{color.id}}">
+<div>
+    <h1 class="colorLabel">{{color.id}}</h1>
+</div>
+</body>
+</html>
