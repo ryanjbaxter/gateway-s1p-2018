@@ -28,14 +28,13 @@ public class CustomLoadBalancerClientFilter extends LoadBalancerClientFilter {
 	protected ServiceInstance choose(ServerWebExchange exchange) {
 		if("blueorgreen".equals(((URI) exchange.getAttribute(GATEWAY_REQUEST_URL_ATTR)).getHost())) {
 			MultiValueMap<String, HttpCookie> cookies = exchange.getRequest().getCookies();
-
 			log.warn("cookie: " + exchange.getRequest().getHeaders().get("cookie"));
 			if (!cookies.containsKey("type") || !"premium".equals(cookies.getFirst("type").getValue())) {
-				long future = System.currentTimeMillis() + 50000;
+				long future = System.currentTimeMillis() + 3000;
 				while (System.currentTimeMillis() < future) {
 					ServiceInstance instance = super.choose(exchange);
-					if (instance != null && (instance.getMetadata() == null || instance.getMetadata().get("type") == null || !"premium".equals(instance.getMetadata().get("type").toLowerCase()))) {
-
+					if (instance != null && (instance.getMetadata() == null || instance.getMetadata().get("type") == null ||
+							!"premium".equals(instance.getMetadata().get("type").toLowerCase()))) {
 						return instance;
 					}
 				}
