@@ -1,0 +1,10 @@
+---
+applications:
+- name: route-service-broker
+  memory: 1G
+  path: build/libs/route-service-broker-0.0.1.BUILD-SNAPSHOT.jar
+  buildpack: java_buildpack
+  services:
+  - route-service-mongodb
+  - route-service-redis
+
