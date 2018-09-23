@@ -26,8 +26,8 @@ repositories {
 	maven { url "https://repo.spring.io/snapshot" }
 }
 
+ext['spring-security.version'] = '5.1.0.RELEASE'
 ext {
-	springSecurityVersion = '5.1.0.RELEASE'
 	springCloudVersion = 'Finchley.SR1'
 	projectGroupId = project.group
 	projectArtifactId = project.name
