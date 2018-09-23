@@ -27,8 +27,8 @@ repositories {
 }
 
 ext {
-	springSecurityVersion = '5.1.0.RC2'
-	springCloudVersion = 'Finchley.RELEASE'
+	springSecurityVersion = '5.1.0.RELEASE'
+	springCloudVersion = 'Finchley.SR1'
 	projectGroupId = project.group
 	projectArtifactId = project.name
 	projectVersion = project.version
