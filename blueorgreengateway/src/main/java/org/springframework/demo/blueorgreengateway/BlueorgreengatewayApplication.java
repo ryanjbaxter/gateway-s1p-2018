@@ -1,5 +1,7 @@
 package org.springframework.demo.blueorgreengateway;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -10,8 +12,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
+@RestController
 public class BlueorgreengatewayApplication {
 
 	public static void main(String[] args) {
@@ -22,8 +27,6 @@ public class BlueorgreengatewayApplication {
 	public RouteLocator routeLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
 				.route(p -> p.path("/blueorgreen").uri("lb://blueorgreen"))
-				.route(p -> p.path("/frontend").filters(f -> f.setPath("/")).uri("lb://blueorgreenfrontend"))
-				.route(p -> p.path("/frontend/**/*").filters(f -> f.stripPrefix(1)).uri("lb://blueorgreenfrontend"))
 				.route(p -> p.path("/").or().path("/color").or().path("/js/**").uri("lb://blueorgreenfrontend"))
 				.build();
 	}
@@ -41,5 +44,12 @@ public class BlueorgreengatewayApplication {
 			http.requestCache().disable().authorizeExchange().anyExchange().permitAll();
 			return http.build();
 		}
+	}
+
+	@RequestMapping("/colorfallback")
+	public Map<String, String> fallbackColor() {
+		Map<String, String> map = new HashMap<>();
+		map.put("id", "red");
+		return map;
 	}
 }
