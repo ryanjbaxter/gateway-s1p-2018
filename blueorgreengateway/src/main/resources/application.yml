@@ -19,4 +19,10 @@ logging:
 server:
   port: 8383
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /manage
 

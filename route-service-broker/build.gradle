@@ -52,6 +52,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-redis-reactive')
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	compile('org.apache.commons:commons-pool2:2.2')
+	compile('io.micrometer:micrometer-registry-prometheus')
 	compileOnly('org.projectlombok:lombok')
 	compileOnly ("org.springframework.boot:spring-boot-configuration-processor")
 
