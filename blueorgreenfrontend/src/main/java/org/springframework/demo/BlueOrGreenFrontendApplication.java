@@ -1,9 +1,11 @@
 package org.springframework.demo;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,18 +19,23 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @RestController
 public class BlueOrGreenFrontendApplication {
-	private final Logger log = LoggerFactory.getLogger(BlueOrGreenFrontendApplication.class);
+	private static final Logger log = LoggerFactory.getLogger(BlueOrGreenFrontendApplication.class);
 
 	@Autowired
 	RestTemplate rest;
@@ -43,7 +50,7 @@ public class BlueOrGreenFrontendApplication {
 	private final static Pattern pattern = Pattern.compile(" *; *");
 
 	@RequestMapping("/color")
-	public String color(HttpServletRequest request) throws URISyntaxException {
+	public String color(HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
 		String cookies = request.getHeader("cookie");
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
 		if (removeTypeCookie) {
@@ -54,7 +61,27 @@ public class BlueOrGreenFrontendApplication {
 		}
 
 		RequestEntity requestEntity = new RequestEntity(headers, HttpMethod.GET, new URI("http://blueorgreengateway/blueorgreen"));
-		return rest.exchange(requestEntity, String.class).getBody();
+		ResponseEntity<String> responseEntity = rest.exchange(requestEntity, String.class);
+		if(responseEntity.getStatusCode().value() == HttpStatus.TOO_MANY_REQUESTS.value()) {
+			log.warn("Too many requests");
+			response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
+			return "";
+		} else {
+			return responseEntity.getBody();
+		}
+	}
+
+	@Component
+	protected static class RateLimitErrorHandler extends DefaultResponseErrorHandler {
+
+		@Override
+		public boolean hasError(ClientHttpResponse clientHttpResponse) throws IOException {
+			if(clientHttpResponse.getStatusCode().value() == HttpStatus.TOO_MANY_REQUESTS.value()) {
+				return false;
+			} else {
+				return super.hasError(clientHttpResponse);
+			}
+		}
 	}
 
 	@Configuration
@@ -62,8 +89,8 @@ public class BlueOrGreenFrontendApplication {
 
 		@LoadBalanced
 		@Bean
-		public RestTemplate rest() {
-			return new RestTemplateBuilder().build();
+		public RestTemplate rest(RateLimitErrorHandler rateLimitErrorHandler) {
+			return new RestTemplateBuilder().errorHandler(rateLimitErrorHandler).build();
 		}
 	}
 
