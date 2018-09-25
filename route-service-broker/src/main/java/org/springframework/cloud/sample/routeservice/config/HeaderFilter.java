@@ -18,10 +18,14 @@ package org.springframework.cloud.sample.routeservice.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
+import org.springframework.web.server.WebSession;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
@@ -38,6 +42,8 @@ import static org.springframework.cloud.gateway.handler.predicate.CloudFoundryRo
  *
  * @author Rob Winch
  */
+@Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class HeaderFilter implements WebFilter {
     private final Logger log = LoggerFactory.getLogger(HeaderFilter.class);
 
@@ -53,11 +59,18 @@ public class HeaderFilter implements WebFilter {
         }
         String path = UriComponentsBuilder.fromHttpUrl(url).build().getPath();
         log.info("Path: {}", path);
+        log.info("Header Filter: headers={}",
+                request.getHeaders());
+
         ServerHttpRequest modified = request.mutate()
                 .path(path)
                 .build();
         ServerWebExchange modifiedExchange = exchange.mutate().request(modified).build();
         modifiedExchange.getAttributes().put(ORIGINAL, exchange);
-        return chain.filter(modifiedExchange);
+        return log(exchange.getSession()).then(log(modifiedExchange.getSession())).then(chain.filter(modifiedExchange));
+    }
+
+    public Mono<Void> log(Mono<WebSession> session) {
+        return session.map(s -> s.getAttributes().keySet()).doOnSuccess(s -> log.warn("Session Attributes: " + s)).then();
     }
 }

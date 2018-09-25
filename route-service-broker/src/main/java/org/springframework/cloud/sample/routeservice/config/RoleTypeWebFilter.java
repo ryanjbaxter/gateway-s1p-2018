@@ -39,7 +39,7 @@ public class RoleTypeWebFilter implements WebFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         // @formatter:off
-        firewall(exchange);
+//        firewall(exchange);
         return exchange.getPrincipal()
                 .cast(Authentication.class)
                 .map(Authentication::getAuthorities)

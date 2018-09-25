@@ -35,7 +35,6 @@ public class SecurityConfiguration {
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         // @formatter:off
         http
-            .addFilterAt(new HeaderFilter(), SecurityWebFiltersOrder.FIRST)
             .addFilterAt(new UndoHeaderFilter(), SecurityWebFiltersOrder.LAST)
             .addFilterAt(new RoleTypeWebFilter(), SecurityWebFiltersOrder.LAST)
             .csrf().disable()

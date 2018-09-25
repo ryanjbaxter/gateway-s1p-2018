@@ -64,7 +64,7 @@ public class RouteConfiguration {
 						.path("/instanceId/{instanceId}")
 						.and()
 						.predicate(cloudFoundryPredicate())
-						.filters(f -> { f
+						.filters(f -> { f.saveSession()
 							.filter(logger())
 							.filter(subscriptionRateLimiter(resolver))
 							.requestHeaderToRequestUri(X_CF_FORWARDED_URL);

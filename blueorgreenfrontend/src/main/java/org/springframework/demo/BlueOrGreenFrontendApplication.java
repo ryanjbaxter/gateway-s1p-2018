@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -52,13 +53,22 @@ public class BlueOrGreenFrontendApplication {
 	@RequestMapping("/color")
 	public String color(HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
 		String cookies = request.getHeader("cookie");
+		log.warn("Cookies: " + cookies);
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-		if (removeTypeCookie) {
-			cookies = removeCookie(cookies, "type");
+		for(Cookie c : request.getCookies()) {
+			if("session".equalsIgnoreCase(c.getName())) {
+				log.warn("Adding session cookie: " + c);
+				headers.set("cookie", c.getName() + "=" + c.getValue());
+				break;
+			}
 		}
-		if (cookies != null && cookies.length() > 0) {
-				headers.set("cookie", cookies);
-		}
+
+//		if (removeTypeCookie) {
+//			//cookies = removeCookie(cookies, "type");
+//		}
+//		if (cookies != null && cookies.length() > 0) {
+//				headers.set("cookie", cookies);
+//		}
 
 		RequestEntity requestEntity = new RequestEntity(headers, HttpMethod.GET, new URI("http://blueorgreengateway/blueorgreen"));
 		ResponseEntity<String> responseEntity = rest.exchange(requestEntity, String.class);

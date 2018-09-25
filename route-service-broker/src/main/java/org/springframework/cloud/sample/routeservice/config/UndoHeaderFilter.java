@@ -19,6 +19,8 @@ package org.springframework.cloud.sample.routeservice.config;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
+import org.springframework.web.server.WebSession;
+
 import reactor.core.publisher.Mono;
 
 /**
@@ -36,6 +38,9 @@ public class UndoHeaderFilter implements WebFilter {
                     .principal(exchange.getPrincipal())
                     .build();
         }
-        return chain.filter(exchange);
+        //TODO test removing this
+        return exchange.getSession()
+                .flatMap(WebSession::save)
+                .then(chain.filter(exchange));
     }
 }

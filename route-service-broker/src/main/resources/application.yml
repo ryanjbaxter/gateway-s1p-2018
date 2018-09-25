@@ -25,12 +25,16 @@ spring:
             bindable: true
             metadata:
               displayName: Rate Limiter (Trial, Basic, and Premium)
+  reactor:
+    stacktrace-mode:
+      enabled: true
 
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+
 
 servicecatalogconfig:
   services:
