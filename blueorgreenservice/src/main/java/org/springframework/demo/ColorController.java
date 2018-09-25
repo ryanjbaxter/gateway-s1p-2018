@@ -16,7 +16,10 @@ public class ColorController {
 	}
 
 	@RequestMapping
-	public Color color() {
+	public Color color() throws InterruptedException {
+		if(colorProperties.isSlow()) {
+			Thread.sleep(5000);
+		}
 		if(Color.BLUE.getId().equalsIgnoreCase(colorProperties.getColor())) {
 			return Color.BLUE;
 		} else if(Color.YELLOW.getId().equalsIgnoreCase(colorProperties.getColor())) {

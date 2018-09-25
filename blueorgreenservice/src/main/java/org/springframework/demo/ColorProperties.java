@@ -10,6 +10,16 @@ public class ColorProperties {
 
 	private String color;
 
+	private boolean slow = false;
+
+	public boolean isSlow() {
+		return slow;
+	}
+
+	public void setSlow(boolean slow) {
+		this.slow = slow;
+	}
+
 	public String getColor() {
 		return color;
 	}

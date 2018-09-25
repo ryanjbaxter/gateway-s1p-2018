@@ -1,0 +1,4 @@
+color: green
+slow: true
+server:
+  port: 6060
