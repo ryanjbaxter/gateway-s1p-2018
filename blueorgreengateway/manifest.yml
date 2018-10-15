@@ -6,3 +6,5 @@ applications:
   timeout: 60
   services:
   - bluegreen-registry
+  routes:
+  - route: techfest-bluegreengateway.cfapps.io
