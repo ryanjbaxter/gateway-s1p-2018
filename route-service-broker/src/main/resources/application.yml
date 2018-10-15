@@ -3,8 +3,8 @@ spring:
     openservicebroker:
       catalog:
         services:
-        - id: d897c845-e15e-467e-9c34-71632e8807e1
-          name: route-service
+        - id: techfest-e15e-467e-9c34-71632e8807e1
+          name: techfest-route-service
           description: Rate-limiting route service based on user role
           bindable: true
           requires: ["route_forwarding"]
@@ -18,7 +18,7 @@ spring:
             documentationUrl: https://docs.cloudfoundry.org/devguide/services/route-binding.html
             providerDisplayName: Pivotal
           plans:
-          - id: 3944a61c-ed68-45c5-b649-a99d1f301c69
+          - id: techfest-ed68-45c5-b649-a99d1f301c69
             name: standard
             description: standard plan
             free: true
@@ -34,9 +34,9 @@ management:
 
 servicecatalogconfig:
   services:
-  - id: d897c845-e15e-467e-9c34-71632e8807e1
+  - id: techfest-e15e-467e-9c34-71632e8807e1
     plans:
-    - id: 3944a61c-ed68-45c5-b649-a99d1f301c69
+    - id: techfest-ed68-45c5-b649-a99d1f301c69
       configs:
       - name: trial
         replenishRate: 5

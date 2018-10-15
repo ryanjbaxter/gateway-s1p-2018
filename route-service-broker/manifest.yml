@@ -7,4 +7,6 @@ applications:
   services:
   - route-service-mongodb
   - route-service-redis
+  routes:
+  - route: techfest-route-service-broker.cfapps.io
 
