@@ -1,0 +1,7 @@
+---
+applications:
+- name: cool-app-demo 
+  memory: 1G
+  path: target/cool-app-0.0.1-SNAPSHOT.jar
+  routes:
+  - route: techfest-cool-app.cfapps.io
