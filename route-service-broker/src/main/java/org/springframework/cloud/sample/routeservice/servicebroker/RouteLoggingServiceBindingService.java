@@ -45,7 +45,7 @@ public class RouteLoggingServiceBindingService implements ServiceInstanceBinding
 
 	@Override
 	public Mono<DeleteServiceInstanceBindingResponse> deleteServiceInstanceBinding(DeleteServiceInstanceBindingRequest request) {
-		return Mono.empty();
+		return Mono.just(DeleteServiceInstanceBindingResponse.builder().build());
 	}
 
 }
