@@ -17,10 +17,7 @@
 package org.springframework.cloud.sample.routeservice.servicebroker;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.servicebroker.model.binding.CreateServiceInstanceBindingRequest;
-import org.springframework.cloud.servicebroker.model.binding.CreateServiceInstanceBindingResponse;
-import org.springframework.cloud.servicebroker.model.binding.CreateServiceInstanceRouteBindingResponse;
-import org.springframework.cloud.servicebroker.model.binding.DeleteServiceInstanceBindingRequest;
+import org.springframework.cloud.servicebroker.model.binding.*;
 import org.springframework.cloud.servicebroker.service.ServiceInstanceBindingService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
@@ -47,7 +44,8 @@ public class RouteLoggingServiceBindingService implements ServiceInstanceBinding
 	}
 
 	@Override
-	public Mono<Void> deleteServiceInstanceBinding(DeleteServiceInstanceBindingRequest request) {
-		return Mono.empty();
+	public Mono<DeleteServiceInstanceBindingResponse> deleteServiceInstanceBinding(DeleteServiceInstanceBindingRequest request) {
+		return Mono.just(DeleteServiceInstanceBindingResponse.builder().build());
 	}
+
 }
