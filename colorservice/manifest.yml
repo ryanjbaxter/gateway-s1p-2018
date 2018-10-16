@@ -1,0 +1,29 @@
+---
+applications:
+- name: blueservice
+  memory: 1024M
+  path: target/colorservice-0.0.1-SNAPSHOT.jar
+  timeout: 60
+  services:
+  - color-registry
+  env:
+    SPRING_PROFILES_ACTIVE: blue
+  no-route: true
+- name: greenservice
+  memory: 1024M
+  path: target/colorservice-0.0.1-SNAPSHOT.jar
+  timeout: 60
+  services:
+  - color-registry
+  env:
+    SPRING_PROFILES_ACTIVE: green
+  no-route: true
+- name: yellowservice
+  memory: 1024M
+  path: target/colorservice-0.0.1-SNAPSHOT.jar
+  timeout: 60
+  services:
+  - color-registry
+  env:
+    SPRING_PROFILES_ACTIVE: yellow
+  no-route: true

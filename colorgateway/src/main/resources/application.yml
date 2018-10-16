@@ -1,3 +1,4 @@
+
 eureka:
   client:
     serviceUrl:
@@ -8,4 +9,20 @@ eureka:
       instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
 spring:
   application:
-    name: colorauthgateway
+    name: colorgateway
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: DEBUG
+server:
+  port: 8383
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /manage
+

@@ -1,0 +1,9 @@
+---
+applications:
+- name: colorfrontend
+  memory: 1024M
+  path: target/colorfrontend-0.0.1-SNAPSHOT.jar
+  timeout: 60
+  services:
+  - color-registry
+  no-route: true

@@ -1,0 +1,10 @@
+---
+applications:
+- name: colorgateway
+  memory: 1024M
+  path: target/colorgateway-0.0.1-SNAPSHOT.jar
+  timeout: 60
+  services:
+  - color-registry
+  routes:
+  - route: techfest-colorgateway.cfapps.io

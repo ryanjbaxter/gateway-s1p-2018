@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cf cs p-service-registry trial bluegreen-registry
+cf cs p-service-registry trial color-registry
 
 # Wait until services are ready
 while cf services | grep 'create in progress'
@@ -15,21 +15,21 @@ if cf services | grep 'create failed'; then
 fi
 echo "Service initialization - successful"
 
-cd blueorgreenservice
+cd colorservice
 ./mvnw clean package
 cf push
 cd ../
-cd blueorgreenfrontend
+cd colorfrontend
 ./mvnw clean package
 cf push
 cd ../
-cd blueorgreengateway
+cd colorgateway
 ./mvnw clean package
 cf push
 cd ../
 
 #Add network policies
-cf add-network-policy blueorgreengateway --destination-app greenservice --protocol tcp --port 8080
-cf add-network-policy blueorgreengateway --destination-app blueservice --protocol tcp --port 8080
-cf add-network-policy blueorgreengateway --destination-app yellowservice --protocol tcp --port 8080
-cf add-network-policy blueorgreengateway --destination-app blueorgreenfrontend --protocol tcp --port 8080
+cf add-network-policy colorgateway --destination-app greenservice --protocol tcp --port 8080
+cf add-network-policy colorgateway --destination-app blueservice --protocol tcp --port 8080
+cf add-network-policy colorgateway --destination-app yellowservice --protocol tcp --port 8080
+cf add-network-policy colorgateway --destination-app colorfrontend --protocol tcp --port 8080
