@@ -1,4 +1,3 @@
 color: green
 slow: true
-server:
-  port: 6060
+server.port: 6060
