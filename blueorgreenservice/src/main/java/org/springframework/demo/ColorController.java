@@ -1,6 +1,6 @@
 package org.springframework.demo;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,7 +15,7 @@ public class ColorController {
 		this.colorProperties = colorProperties;
 	}
 
-	@RequestMapping
+	@GetMapping(path = {"/blueorgreen", "/"})
 	public Color color() throws InterruptedException {
 		if (colorProperties.isSlow()) {
 			Thread.sleep(5000);
