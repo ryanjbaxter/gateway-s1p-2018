@@ -1,23 +1,2 @@
-spring:
-  application:
-    name: blueorgreenfrontend
-  cloud:
-    services:
-      registrationMethod: direct
-server:
-  port: 9090
-
-security:
-  basic:
-    enabled: false
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-  instance:
-    leaseRenewalIntervalInSeconds: 10
-    metadataMap:
-      instanceId: ${vcap.application.instance_id:${spring.application.name}:${spring.application.instance_id:${server.port}}}
-
-#removeTypeCookie: false
+spring.application.name: blueorgreenfrontend
+server.port: 9090
