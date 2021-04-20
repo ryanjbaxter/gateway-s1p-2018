@@ -5,8 +5,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +60,7 @@ public class BlueOrGreenFrontendApplication {
 				headers.set("cookie", cookies);
 		}
 
-		RequestEntity requestEntity = new RequestEntity(headers, HttpMethod.GET, new URI("http://blueorgreengateway/blueorgreen"));
+		RequestEntity<?> requestEntity = new RequestEntity<>(headers, HttpMethod.GET, new URI("http://blueorgreengateway/blueorgreen"));
 		ResponseEntity<String> responseEntity = rest.exchange(requestEntity, String.class);
 		if(responseEntity.getStatusCode().value() == HttpStatus.TOO_MANY_REQUESTS.value()) {
 			log.warn("Too many requests");
