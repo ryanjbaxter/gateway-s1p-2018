@@ -28,7 +28,9 @@ public class BlueorgreengatewayApplication {
 	@Bean
 	public RouteLocator routeLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
-				.route(p -> p.path("/blueorgreen").uri("lb://blueorgreen"))
+				.route(p -> p.path("/blueorgreen")
+						.filters(f -> f.circuitBreaker(c -> c.setFallbackUri("/colorfallback")))
+						.uri("lb://blueorgreen"))
 				.route(p -> p.path("/").or().path("/color").or().path("/js/**").uri("lb://blueorgreenfrontend"))
 				.build();
 	}
