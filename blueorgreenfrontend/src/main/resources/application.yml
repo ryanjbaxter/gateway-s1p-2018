@@ -1,6 +1,6 @@
 spring:
   application.name: blueorgreenfrontend
-  config.import: "optional:configserver:http://localhost:8888:"
+  config.import: "optional:configserver:http://localhost:8888"
 server.port: 9090
 
 removeTypeCookie: false
