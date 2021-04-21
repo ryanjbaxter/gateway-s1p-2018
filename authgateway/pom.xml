@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.5.RELEASE</version>
+		<version>2.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -22,10 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>11</java.version>
-		<spring-cloud.version>Finchley.SR1</spring-cloud.version>
-		<scs.version>2.0.1.RELEASE</scs.version>
-		<!-- Needed for fix to pull css from https -->
-		<spring-security.version>5.1.0.RC2</spring-security.version>
+		<spring-cloud.version>2020.0.2</spring-cloud.version>
 	</properties>
 
 	<dependencies>
