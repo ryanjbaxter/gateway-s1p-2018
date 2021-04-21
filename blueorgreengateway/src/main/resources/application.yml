@@ -24,5 +24,3 @@ management:
     web:
       exposure:
         include: "*"
-      base-path: /manage
-
