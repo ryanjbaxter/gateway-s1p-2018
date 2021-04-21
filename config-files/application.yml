@@ -1,0 +1,16 @@
+eureka:
+  client.serviceUrl.defaultZone: http://localhost:8761/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    metadataMap.instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+
+server.shutdown: graceful
+
+spring.lifecycle.timeout-per-shutdown-phase: 20s
+
+management:
+  endpoints:
+    web:
+      exposure.include: "*"
+#      base-path: /manage
+  endpoint.shutdown.enabled: true

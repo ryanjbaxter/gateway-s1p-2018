@@ -1,0 +1,7 @@
+server.port: 9090
+
+security:
+  basic:
+    enabled: false
+
+#removeTypeCookie: false

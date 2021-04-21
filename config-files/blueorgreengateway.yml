@@ -1,0 +1,8 @@
+server.port: 8383
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: INFO
