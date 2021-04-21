@@ -1,4 +1,3 @@
-rm -rf logs
 mkdir -p logs
 
 cd configserver
