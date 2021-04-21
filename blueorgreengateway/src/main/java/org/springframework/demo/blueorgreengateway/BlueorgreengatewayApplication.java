@@ -40,7 +40,7 @@ public class BlueorgreengatewayApplication {
 
 		@Bean
 		public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-			http.requestCache().disable().authorizeExchange().anyExchange().permitAll();
+			http.csrf().disable().requestCache().disable().authorizeExchange().anyExchange().permitAll();
 			return http.build();
 		}
 	}
