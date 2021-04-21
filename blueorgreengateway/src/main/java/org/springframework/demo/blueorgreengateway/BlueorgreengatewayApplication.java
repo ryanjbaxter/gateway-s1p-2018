@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
-import org.springframework.cloud.gateway.filter.LoadBalancerClientFilter;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
+import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClient;
+import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
+@LoadBalancerClient(name = "blueorgreen", configuration = LoadBalancerConfiguration.class)
 public class BlueorgreengatewayApplication {
 
 	public static void main(String[] args) {
@@ -29,11 +31,6 @@ public class BlueorgreengatewayApplication {
 				.route(p -> p.path("/blueorgreen").uri("lb://blueorgreen"))
 				.route(p -> p.path("/").or().path("/color").or().path("/js/**").uri("lb://blueorgreenfrontend"))
 				.build();
-	}
-
-	@Bean
-	public LoadBalancerClientFilter loadBalancerClientFilter(LoadBalancerClient client) {
-		return new CustomLoadBalancerClientFilter(client);
 	}
 
 	@Configuration
@@ -51,5 +48,16 @@ public class BlueorgreengatewayApplication {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", "red");
 		return map;
+	}
+}
+
+class LoadBalancerConfiguration {
+	@Bean
+	public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
+			ConfigurableApplicationContext context) {
+		return ServiceInstanceListSupplier.builder()
+				.withDiscoveryClient()
+				.withHints()
+				.build(context);
 	}
 }
