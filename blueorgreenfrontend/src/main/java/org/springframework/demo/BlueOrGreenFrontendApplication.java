@@ -3,6 +3,7 @@ package org.springframework.demo;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,6 +59,11 @@ public class BlueOrGreenFrontendApplication {
 		}
 		if (cookies != null && cookies.length() > 0) {
 				headers.set("cookie", cookies);
+		}
+
+		if(!Arrays.stream(request.getCookies()).anyMatch(cookie -> cookie.getName().equals("type") &&
+				cookie.getValue().equals("premium"))) {
+			headers.set("X-SC-LB-Hint", "nonpremium");
 		}
 
 		RequestEntity<?> requestEntity = new RequestEntity<>(headers, HttpMethod.GET, new URI("http://blueorgreengateway/blueorgreen"));
