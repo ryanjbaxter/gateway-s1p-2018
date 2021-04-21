@@ -8,8 +8,8 @@ eureka:
     metadataMap:
       instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
 spring:
-  application:
-    name: blueorgreengateway
+  application.name: blueorgreengateway
+  config.import: "optional:configserver:http://localhost:8888:"
 logging:
   level:
     org:
