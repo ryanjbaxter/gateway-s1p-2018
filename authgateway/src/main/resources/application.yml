@@ -8,7 +8,8 @@ eureka:
       instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
 spring:
   application.name: blueorgreenauthgateway
-  config.import: "optional:configserver:http://localhost:8888"
+  config:
+    import: "optional:configserver:http://localhost:8888"
 management:
   endpoints:
     web:
