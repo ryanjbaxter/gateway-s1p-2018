@@ -6,7 +6,8 @@ eureka:
 
 server.shutdown: graceful
 
-spring.lifecycle.timeout-per-shutdown-phase: 20s
+spring:
+  lifecycle.timeout-per-shutdown-phase: 20s
 
 management:
   endpoints:
