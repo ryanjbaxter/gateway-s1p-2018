@@ -1,5 +1,0 @@
-color: green
-slow: true
-server.port: 6060
-
-eureka.instance.metadataMap.hint: nonpremium

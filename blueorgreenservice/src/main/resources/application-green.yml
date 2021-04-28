@@ -1,4 +1,0 @@
-color: green
-server.port: 7070
-
-eureka.instance.metadataMap.hint: nonpremium

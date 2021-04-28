@@ -61,7 +61,7 @@ public class BlueOrGreenFrontendApplication {
 				headers.set("cookie", cookies);
 		}
 
-		if(!Arrays.stream(request.getCookies()).anyMatch(cookie -> cookie.getName().equals("type") &&
+		if(request.getCookies() != null && !Arrays.stream(request.getCookies()).anyMatch(cookie -> cookie.getName().equals("type") &&
 				cookie.getValue().equals("premium"))) {
 			headers.set("X-SC-LB-Hint", "nonpremium");
 		}

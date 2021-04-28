@@ -1,4 +1,0 @@
-color: blue
-server.port: 8181
-
-eureka.instance.metadataMap.hint: nonpremium
