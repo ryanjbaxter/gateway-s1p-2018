@@ -5,44 +5,27 @@ spring:
 server.port: 7070
 
 ---
-spring:
-  config:
-    activate:
-      on-profile: "blue | green | slowgreen"
-
+spring.config.activate.on-profile: "blue | green | slowgreen"
 eureka.instance.metadataMap.hint: nonpremium
 
 ---
-spring:
-  config:
-    activate:
-      on-profile: "blue"
+spring.config.activate.on-profile: "blue"
 color: blue
 server.port: 8181
 
 ---
-spring:
-  config:
-    activate:
-      on-profile: "green"
+spring.config.activate.on-profile: "green"
 color: green
 server.port: 7070
 
 ---
-spring:
-  config:
-    activate:
-      on-profile: "slowgreen"
+spring.config.activate.on-profile: "slowgreen"
 color: green
 slow: true
 server.port: 6060
 
 ---
-spring:
-  config:
-    activate:
-      on-profile: "yellow"
+spring.config.activate.on-profile: "yellow"
 color: yellow
 server.port: 8282
-
 eureka.instance.metadataMap.hint: premium
