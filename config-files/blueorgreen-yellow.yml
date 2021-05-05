@@ -1,3 +1,4 @@
 color: yellow
 server.port: 8282
-eureka.instance.metadataMap.type: premium
+
+eureka.instance.metadataMap.hint: premium
