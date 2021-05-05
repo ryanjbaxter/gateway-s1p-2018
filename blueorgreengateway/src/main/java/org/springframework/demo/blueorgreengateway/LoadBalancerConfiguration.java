@@ -7,8 +7,7 @@ import org.springframework.context.annotation.Bean;
 class LoadBalancerConfiguration {
 
     @Bean
-    public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
-            ConfigurableApplicationContext context) {
+    public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(ConfigurableApplicationContext context) {
         return ServiceInstanceListSupplier.builder()
                 .withDiscoveryClient()
                 .withHints()
